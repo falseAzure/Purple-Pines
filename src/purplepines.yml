@@ -6,55 +6,50 @@ maintainers:
 semanticClass: theme.purplepines
 semanticHighlighting: true
 purplepines:
-  base green:
-    - &BG5      '#060d09' # shadow
-    # - &BG10     '#0d1a12'
-    - &BG11     '#0e1c15'
-    - &BG12     '#0f1e16'
-    - &BG13     '#112116'
-    # - &BG14     '#12241a'
-    - &BG15     '#14261a'
-    # - &BG16     '#15291d'
-    # - &BG18     '#172e20'
-    - &BG20     '#1a3323'
-    - &BG22     '#1d3827'
-    # - &BG24     '#203d2b'
-    - &BG26     '#22422f'
-    - &BG30     '#274d35'
-    # - &BG50     '#418058'
-    - &BG70     '#5bb37b'
-  base accent:
-    - &ACC100  '#d333ff'
-    - &ACC82   '#ac29d1'
-    # - &ACC64   '#8721a3'
-    # - &ACC47   '#631878'
-    - &ACC45   '#5f1773'
-    # - &ACC33   '#461155'
   base:
-    - &FG        '#F1F1E1'
-    - &SELECTION '#5f1773'
-    - # Comments
-    - &COMMENT   '#9972a3'
-    - &COMMENT_G '#858f88'
-    - &COMMENT_V '#a093a3'
-    - &COMMENT_D '#6b636e'
-    - # Primary
-    - &YELLOW    '#ffed79'
-    - &BLUE      '#79c0ff'
-    - &RED       '#ff799d'
-    - # Secondary
-    - &PURPLE    '#bd00ff' # Complementary of *YELLOW > HSV: 284 with max saturation
-    - &ORANGE    '#ff5e00'
-    - &GREEN     '#44ff00'
-    - # Tertiary
-    - &PINK      '#ff3cd2' # Analogous of *RED and *PURPLE
-    - &CYAN      '#8BE9FD' # Analogous of *YELLOW and *GREEN
-    - &BL_PU     '#6a3cff' # Analogous of *BLUE and *PURPLE
-    - &TURQUOISE '#3cff97' # Analogous of *BLUE and *GREEN
-    - &MAROON    '#ff533c' # Analogous of *RED and *ORANGE
-    - &SUMMER    '#ffb43c' # Analogous of *YELLOW and *ORANGE
-    - # Other
-    - &ERROR     '#ff0d00' # Complementary of *BG > HSV: 5
+  - &MAINCOLOR '#5bb37b'
+  - &FG        '#F1F1E1'
+  comments:
+  - # Comments
+  - &COMMENT !hsv ['accent', 30, 64]
+  - &COMMENT_G !hsv ['main', 7, 56]
+  - &COMMENT_V !hsv ['accent', 10, 64]
+  - &COMMENT_D !hsv ['main', 10, 43]
+  tokencolors:
+  - # Primary
+  - &YELLOW    '#ffed79'
+  - &BLUE      '#79c0ff'
+  - &RED       '#ff799d'
+  - # Secondary
+  - &PURPLE    '#bd00ff' # Complementary of *YELLOW > HSV: 284 with max saturation
+  - &ORANGE    '#ff5e00'
+  - &GREEN     '#44ff00'
+  - # Tertiary
+  - &PINK      '#ff3cd2' # Analogous of *RED and *PURPLE
+  - &CYAN      '#8BE9FD' # Analogous of *YELLOW and *GREEN
+  - &BL_PU     '#6a3cff' # Analogous of *BLUE and *PURPLE
+  - &TURQUOISE '#3cff97' # Analogous of *BLUE and *GREEN
+  - &MAROON    '#ff533c' # Analogous of *RED and *ORANGE
+  - &SUMMER    '#ffb43c' # Analogous of *YELLOW and *ORANGE
+  - # Other
+  - &ERROR     '#ff0d00' # Complementary of *BG > HSV: 5
+  main:
+    - &BG5      !hsv ['main', null, 5]
+    - &BG11     !hsv ['main', null, 11]
+    - &BG12     !hsv ['main', null, 12]
+    - &BG13     !hsv ['main', null, 13]
+    - &BG15     !hsv ['main', null, 15]
+    - &BG20     !hsv ['main', null, 20]
+    - &BG22     !hsv ['main', null, 22]
+    - &BG26     !hsv ['main', null, 26]
+    - &BG30     !hsv ['main', null, 30]
+    - &BG50     !hsv ['main', null, 50]
+    - &BG70     !hsv ['main', null, 70]
+  accent:
+    - &ACC100  !hsv ['accent', null, 100]
+    - &ACC82   !hsv ['accent', null, 82]
+    - &ACC45   !hsv ['accent', null, 45]
+    - &SELECTION !hsv ['accent', null, 45]
   ansi:
     - &COLOR0        '#21222C'
     - &COLOR1        '#FF5555'
@@ -91,7 +86,7 @@ purplepines:
 colors:
 
   # Integrated Terminal Colors
-  terminal.background: *BG12
+  terminal.background: *BG11
   terminal.foreground: *FG
   terminal.ansiBrightBlack: *COLOR8
   terminal.ansiBrightRed: *COLOR9
@@ -138,10 +133,10 @@ colors:
   dropdown.foreground: *FG                                                      # Dropdown foreground
 
   # Input Control
-  input.background: *BG24                                                       # Input box background
+  input.background: *BG26                                                       # Input box background
   input.foreground: *FG                                                         # Input box foreground
   input.border: *BG26                                                       # Input box border
-  input.placeholderForeground: *COMMENT                                         # Input box foreground color for placeholder text
+  input.placeholderForeground: *COMMENT_G                                         # Input box foreground color for placeholder text
   inputOption.activeBorder: !alpha [*ACC82, 50]                                             # Border color of activated options in input fields
   inputValidation.infoForeground:                                               # Input validation foreground color for information severity
   inputValidation.infoBackground:                                               # Input validation background color for information severity
@@ -155,13 +150,13 @@ colors:
 
   # Scroll Bar Control
   scrollbar.shadow: *BG5                                                             # Scroll Bar shadow to indicate that the view is scrolled
-  scrollbarSlider.activeBackground:                                             # Slider background color when active
-  scrollbarSlider.background:                                                   # Slider background color
-  scrollbarSlider.hoverBackground:                                              # Slider background color when hovering
+  scrollbarSlider.activeBackground: !alpha [*BG50, 95]                                             # Slider background color when active
+  scrollbarSlider.background: !alpha [*BG50, 45]                                                   # Slider background color
+  scrollbarSlider.hoverBackground: !alpha [*BG50, 70]                                              # Slider background color when hovering
 
   # Badge
   badge.foreground: *FG                                                         # Badge foreground color
-  badge.background: *SELECTION                                                  # Badge background color
+  badge.background: *ACC82                                                  # Badge background color
 
   # Progress Bar
   progressBar.background: *ACC100                                                 # Background color of the progress bar shown for long running operations
@@ -212,18 +207,20 @@ colors:
   tab.activeBackground: *BG12                                                     # Active Tab background color
   tab.activeForeground: *FG                                                     # Active Tab foreground color in an active group
   tab.border: *BG22                                                         # Border to separate Tabs from each other
-  tab.activeBorderTop:                                        # A border drawn to the top of the active tab
-  tab.activeBorder: *ACC82                                                             # A border drawn to the bottom of the active tab
+  tab.activeBorderTop: *ACC82                                        # A border drawn to the top of the active tab
+  tab.activeBorder:                                                              # A border drawn to the bottom of the active tab
   tab.unfocusedActiveBorder:                                                    # A border drawn to the bottom of the active tab in an editor group that is not focused
   tab.inactiveBackground: *BG15                                               # Inactive Tab background color
-  tab.inactiveForeground: *COMMENT_G                                              # Inactive Tab foreground color in an active group
+  tab.inactiveForeground: !alpha [*FG, 60]                                              # Inactive Tab foreground color in an active group
+  tab.hoverBackground: *BG22                                                    # Tab background color when hovering
   tab.unfocusedActiveForeground:                                                # Active tab foreground color in an inactive editor group
   tab.unfocusedInactiveForeground:                                              # Inactive tab foreground color in an inactive editor group
 
   # Editor Colors
   editor.foreground: *FG
   editor.background: *BG11
-  editorLineNumber.foreground: *COMMENT
+  editorLineNumber.foreground: *COMMENT_G
+  editorLineNumber.activeForeground: *ACC82
   editorCursor.foreground:
 
   editor.selectionBackground: *SELECTION                                        # Color of the editor selection
@@ -240,8 +237,8 @@ colors:
 
   editor.hoverHighlightBackground: !alpha [*CYAN, 50]                           # Highlight below the word for which a hover is shown
 
-  editor.lineHighlightBackground:                                               # Background color for the highlight of line at the cursor position
-  editor.lineHighlightBorder: *SELECTION                                        # Background color for the border around the line at the cursor position
+  editor.lineHighlightBackground: !alpha [*SELECTION, 50]                                               # Background color for the highlight of line at the cursor position
+  editor.lineHighlightBorder:                                         # Background color for the border around the line at the cursor position
 
   editorLink.activeForeground: *CYAN                                            # Color of active links
   editor.rangeHighlightBackground: !alpha [ *PURPLE, 15 ]                       # Background color of highlighted ranges, like by Quick Open and Find features
@@ -256,7 +253,7 @@ colors:
   editorIndentGuide.activeBackground: !alpha [ *FG, 45]                      # Color of the active indentation guide
   editorRuler.foreground: *NonText                                              # Color of the editor rulers
 
-  editorCodeLens.foreground: *COMMENT                                           # Foreground color of an editor CodeLens
+  editorCodeLens.foreground: *COMMENT_G                                           # Foreground color of an editor CodeLens
 
   # NOTE: These are not set because they tend to be highly contested from
   # person to person. Thus, setting these is probably better suited
@@ -299,7 +296,7 @@ colors:
   gitDecoration.modifiedResourceForeground: *CYAN
   gitDecoration.deletedResourceForeground: *RED
   gitDecoration.untrackedResourceForeground: *GREEN
-  gitDecoration.ignoredResourceForeground: *COMMENT
+  gitDecoration.ignoredResourceForeground: *COMMENT_G
   gitDecoration.conflictingResourceForeground: *ORANGE
 
   # Diff Editor Colors
@@ -317,7 +314,7 @@ colors:
   editorSuggestWidget.border: *BG26                                                   # Border color of the suggestion widget
   editorSuggestWidget.foreground: *FG                                           # Foreground color of the suggestion widget
   editorSuggestWidget.highlightForeground:                                      # Color of the match highlights in the suggestion widget
-  editorSuggestWidget.selectedBackground: *SELECTION                            # Background color of the selected entry in the suggestion widget
+  editorSuggestWidget.selectedBackground: *BG22                            # Background color of the selected entry in the suggestion widget
 
   editorHoverWidget.background: *BG12                                             # Background color of the editor hover
   editorHoverWidget.border: *COMMENT                                            # Border color of the editor hover
@@ -332,13 +329,13 @@ colors:
   # Peek View Colors
   peekView.border: *SELECTION                                                   # Color of the peek view borders and arrow
   peekViewEditor.background: *BG20                                                # Background color of the peek view editor
-  peekViewEditorGutter.background:                                              # Background color of the gutter in the peek view editor
+  peekViewEditorGutter.background: *BG20                                              # Background color of the gutter in the peek view editor
   peekViewEditor.matchHighlightBackground: !alpha [ *YELLOW, 80 ]               # Match highlight color in the peek view editor
   peekViewResult.background: *BG20                                            # Background color of the peek view result list
   peekViewResult.fileForeground: *FG                                            # Foreground color for file nodes in the peek view result list
   peekViewResult.lineForeground: *FG                                            # Foreground color for line nodes in the peek view result list
   peekViewResult.matchHighlightBackground: !alpha [ *YELLOW, 80 ]               # Match highlight color in the peek view result list
-  peekViewResult.selectionBackground: *SELECTION                                # Background color of the selected entry in the peek view result list
+  peekViewResult.selectionBackground: *BG22                                # Background color of the selected entry in the peek view result list
   peekViewResult.selectionForeground: *FG                                       # Foreground color of the selected entry in the peek view result list
   peekViewTitle.background: *BG22                                           # Background color of the peek view title area
   peekViewTitleDescription.foreground: *COMMENT                                 # Color of the peek view title info
@@ -358,7 +355,7 @@ colors:
   panel.border: *BG26                                                         # Panel border color on the top separating to the editor
   panelTitle.activeBorder: *ACC82                                                # Border color for the active panel title
   panelTitle.activeForeground: *FG                                              # Title color for the active panel
-  panelTitle.inactiveForeground: *COMMENT                                       # Title color for the inactive panel
+  panelTitle.inactiveForeground: !alpha [*FG, 60]                                       # Title color for the inactive panel
 
   # Status Bar Colors
   statusBar.background: *ACC45                                               # Standard Status Bar background color
@@ -371,15 +368,15 @@ colors:
   statusBarItem.hoverBackground:                                                # Status Bar item background color when hovering
   statusBarItem.prominentBackground: *RED                                       # Status Bar prominent items background color. Prominent items stand out from other Status Bar entries to indicate importance
   statusBarItem.prominentHoverBackground: *ORANGE                               # Status Bar prominent items background color when hovering. Prominent items stand out from other Status Bar entries to indicate importance
-  statusBarItem.remoteForeground: *COMMENT                                           # Background color for the remote indicator on the status bar
-  statusBarItem.remoteBackground: *ACC45                                       # Foreground color for the remote indicator on the status bar
+  statusBarItem.remoteForeground: *COMMENT                                           # Foreground color for the remote indicator on the status bar
+  statusBarItem.remoteBackground: *ACC45                                       # Background color for the remote indicator on the status bar
   statusBar.border: *ACC82                                                     # Status Bar border color separating to the Status Bar and editor
 
   # Title Bar Colors (MacOS Only)
   titleBar.activeBackground: *BG22                                            # Title Bar background when the window is active
   titleBar.activeForeground: *FG                                                # Title Bar foreground when the window is active
   titleBar.inactiveBackground: *BG22                                        # Title Bar background when the window is inactive
-  titleBar.inactiveForeground: *COMMENT                                         # Title Bar foreground when the window is inactive
+  titleBar.inactiveForeground: !alpha [*FG, 60]                                         # Title Bar foreground when the window is inactive
 
   # Extensions
   extensionButton.prominentForeground: *FG                                      # Extension view button foreground color (for example Install button)
@@ -388,7 +385,7 @@ colors:
 
   # Quick Picker
   pickerGroup.border: *BG30                                                   # Quick picker (Quick Open) color for grouping borders
-  pickerGroup.foreground: *ACC82                                                 # Quick picker (Quick Open) color for grouping labels
+  pickerGroup.foreground: *BG30                                                 # Quick picker (Quick Open) color for grouping labels
 
   # Debug
   debugToolBar.background: *BG26                                              # Debug toolbar background color
@@ -417,7 +414,7 @@ colors:
   settings.numberInputBorder:          *BG26                                # Number input box border
 
   # Breadcrumbs
-  breadcrumb.foreground: *COMMENT_D                                               # Color of breadcrumb items
+  breadcrumb.foreground: *COMMENT_G                                               # Color of breadcrumb items
   breadcrumb.background: *BG11
   breadcrumb.focusForeground: *FG                                               # Color of focused breadcrumb items
   breadcrumb.activeSelectionForeground: *FG                                     # Color of selected breadcrumb items
@@ -665,7 +662,7 @@ tokenColors:
     - unused.comment
     - wildcard.comment
     settings:
-      foreground: *COMMENT
+      foreground: *COMMENT_D
 
   - name: JSDoc-style keywords
     scope:
