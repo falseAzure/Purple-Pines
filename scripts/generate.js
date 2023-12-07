@@ -2,7 +2,8 @@ const { readFile } = require('fs').promises;
 const { join } = require('path');
 const { Type, DEFAULT_SCHEMA, load } = require('js-yaml');
 const tinycolor = require('tinycolor2');
-
+const MAINCOLOR = tinycolor('#5bb37b')
+const ACCENTCOLOR = tinycolor('#d333ff')
 /**
  * @typedef {Object} TokenColor - Textmate token color.
  * @prop {string} [name] - Optional name.
@@ -30,36 +31,43 @@ const withAlphaType = new Type('!alpha', {
     represent: ([hexRGB, alpha]) => hexRGB + alpha,
 });
 
-// function to change the value/brightness of a hexcode
-const withValueType = new Type('!value', {
+const withHSVType = new Type('!hsv', {
     kind: 'sequence', // Expect a sequence of data
-    construct: ([hexRGB, value]) => {
-        // Convert the hexRGB to a tinycolor object
-        const color = tinycolor(hexRGB);
-        // Get the HSV representation of the color
-        let hsvColor = color.toHsv();
-        // Change the value/brightness to the provided value (range: 0-100)
-        hsvColor.v = value / 100; // tinycolor works with a value between 0 and 1
-        // Convert the modified HSV color back to hexcode
+    construct: ([color_type, saturation, value]) => {
+        if (color_type == 'main') {
+            hsvColor = MAINCOLOR.toHsv();
+        } else if (color_type == 'accent') {
+            hsvColor = ACCENTCOLOR.toHsv();
+        }
+        // hsvColor = MAINCOLOR.toHsv();
+        if (saturation != null) {
+            hsvColor.s = saturation / 100; // tinycolor works with a value between 0 and 1
+        }
+        if (value != null) {
+            hsvColor.v = value / 100; // tinycolor works with a value between 0 and 1
+        }
         const modifiedHex = tinycolor(hsvColor).toHexString();
-        // Return the modified hexcode
         return modifiedHex;
     },
-    represent: ([hexRGB, value]) => {
-        // Convert the hexRGB to a tinycolor object
-        const color = tinycolor(hexRGB);
-        // Get the HSV representation of the color
-        let hsvColor = color.toHsv();
-        // Change the value/brightness to the provided value (range: 0-100)
-        hsvColor.v = value / 100; // tinycolor works with a value between 0 and 1
-        // Convert the modified HSV color back to hexcode
+    represent: ([color_type, saturation, value]) => {
+        if (color_type == 'main') {
+            hsvColor = MAINCOLOR.toHsv();
+        } else if (color_type == 'accent') {
+            hsvColor = ACCENTCOLOR.toHsv();
+        }
+        // hsvColor = MAINCOLOR.toHsv();
+        if (saturation != null) {
+            hsvColor.s = saturation / 100; // tinycolor works with a value between 0 and 1
+        }
+        if (value != null) {
+            hsvColor.v = value / 100; // tinycolor works with a value between 0 and 1
+        }
         const modifiedHex = tinycolor(hsvColor).toHexString();
-        // Return the modified hexcode
         return modifiedHex;
     },
 });
 
-const schema = DEFAULT_SCHEMA.extend([withAlphaType, withValueType]);
+const schema = DEFAULT_SCHEMA.extend([withAlphaType, withHSVType]);
 /**
  * Soft variant transform.
  * @type {ThemeTransform}
@@ -95,25 +103,6 @@ module.exports = async () => {
 
     // Get the main color
     const mainColor = tinycolor(base.MAINCOLOR);
-
-    // Define the brightness values for your sub colors
-    const brightnessValues = [0.8, 0.6, 0.4, 0.2];
-
-    // Generate the sub colors
-    const subColors = {};
-    brightnessValues.forEach(brightness => {
-        // Get the HSV representation of the main color
-        let hsvColor = mainColor.toHsv();
-        // Change the value/brightness
-        hsvColor.v = brightness;
-        // Convert the modified HSV color back to hexcode
-        const modifiedHex = tinycolor(hsvColor).toHex();
-        // Store the modified hexcode with the corresponding key
-        subColors[`main${brightness * 100}`] = modifiedHex;
-    });
-
-    // Add the sub colors to the base object
-    base.colors = { ...base.colors, ...subColors };
 
     // Remove nulls and other falsey values from colors
     for (const key of Object.keys(base.colors)) {
