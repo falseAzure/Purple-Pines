@@ -22,14 +22,44 @@ const tinycolor = require('tinycolor2');
  * @typedef {(yamlObj: Theme) => Theme} ThemeTransform
  */
 
+
+// function to add alpha channel to hexcode
 const withAlphaType = new Type('!alpha', {
     kind: 'sequence',
     construct: ([hexRGB, alpha]) => hexRGB + alpha,
     represent: ([hexRGB, alpha]) => hexRGB + alpha,
 });
 
-const schema = DEFAULT_SCHEMA.extend([withAlphaType]);
+// function to change the value/brightness of a hexcode
+const withValueType = new Type('!value', {
+    kind: 'sequence', // Expect a sequence of data
+    construct: ([hexRGB, value]) => {
+        // Convert the hexRGB to a tinycolor object
+        const color = tinycolor(hexRGB);
+        // Get the HSV representation of the color
+        let hsvColor = color.toHsv();
+        // Change the value/brightness to the provided value (range: 0-100)
+        hsvColor.v = value / 100; // tinycolor works with a value between 0 and 1
+        // Convert the modified HSV color back to hexcode
+        const modifiedHex = tinycolor(hsvColor).toHexString();
+        // Return the modified hexcode
+        return modifiedHex;
+    },
+    represent: ([hexRGB, value]) => {
+        // Convert the hexRGB to a tinycolor object
+        const color = tinycolor(hexRGB);
+        // Get the HSV representation of the color
+        let hsvColor = color.toHsv();
+        // Change the value/brightness to the provided value (range: 0-100)
+        hsvColor.v = value / 100; // tinycolor works with a value between 0 and 1
+        // Convert the modified HSV color back to hexcode
+        const modifiedHex = tinycolor(hsvColor).toHexString();
+        // Return the modified hexcode
+        return modifiedHex;
+    },
+});
 
+const schema = DEFAULT_SCHEMA.extend([withAlphaType, withValueType]);
 /**
  * Soft variant transform.
  * @type {ThemeTransform}
@@ -62,6 +92,28 @@ module.exports = async () => {
 
     /** @type {Theme} */
     const base = load(yamlFile, { schema });
+
+    // Get the main color
+    const mainColor = tinycolor(base.MAINCOLOR);
+
+    // Define the brightness values for your sub colors
+    const brightnessValues = [0.8, 0.6, 0.4, 0.2];
+
+    // Generate the sub colors
+    const subColors = {};
+    brightnessValues.forEach(brightness => {
+        // Get the HSV representation of the main color
+        let hsvColor = mainColor.toHsv();
+        // Change the value/brightness
+        hsvColor.v = brightness;
+        // Convert the modified HSV color back to hexcode
+        const modifiedHex = tinycolor(hsvColor).toHex();
+        // Store the modified hexcode with the corresponding key
+        subColors[`main${brightness * 100}`] = modifiedHex;
+    });
+
+    // Add the sub colors to the base object
+    base.colors = { ...base.colors, ...subColors };
 
     // Remove nulls and other falsey values from colors
     for (const key of Object.keys(base.colors)) {
