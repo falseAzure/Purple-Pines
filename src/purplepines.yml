@@ -7,7 +7,9 @@ semanticClass: theme.purplepines
 semanticHighlighting: true
 purplepines:
   base:
-  - &MAINCOLOR '#5bb37b'
+  - &MAIN '#5bb37b'
+  - &ACCENT 'd333ff'
+  foreground:
   - &FG        '#F1F1E1'
   comments:
   - # Comments
@@ -385,7 +387,7 @@ colors:
 
   # Quick Picker
   pickerGroup.border: *BG30                                                   # Quick picker (Quick Open) color for grouping borders
-  pickerGroup.foreground: *BG30                                                 # Quick picker (Quick Open) color for grouping labels
+  pickerGroup.foreground: *FG                                                 # Quick picker (Quick Open) color for grouping labels
 
   # Debug
   debugToolBar.background: *BG26                                              # Debug toolbar background color
@@ -430,12 +432,13 @@ colors:
   listFilterWidget.noMatchesOutline: *RED                                       # Outline color of the type filter widget in lists and trees, when there are no matches.
 
   # Notifications
-  notifications.background: *BG26                                          # Notification Center background color
+  # no dedicated notifications.hoverBackground > use list.hoverBackground
+  notifications.background: *BG22                                          # Notification Center background color
   notifications.border: *BG30
   notifications.foreground: *FG                                                  # Notification foreground color
   notifications.buttonHoverBackground: *BG30                                          # Notification Center background color when hovering
   notificationCenter.border: *BG30
-  notificationCenterHeader.background: *BG20                                 # Notification Center header foreground color
+  notificationCenterHeader.background: *BG30                                 # Notification Center header foreground color
   notificationToast.border: *BG30                                          # Notification toast border color
 
   # Command Center

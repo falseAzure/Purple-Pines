@@ -1,9 +1,56 @@
 const { readFile } = require('fs').promises;
+const fs = require('fs');
 const { join } = require('path');
 const { Type, DEFAULT_SCHEMA, load } = require('js-yaml');
 const tinycolor = require('tinycolor2');
+const readline = require('readline');
+const yaml = require('js-yaml');
+const { stdout } = require('process');
+
 const MAINCOLOR = tinycolor('#5bb37b')
 const ACCENTCOLOR = tinycolor('#d333ff')
+
+const readInterface = readline.createInterface({
+    input: fs.createReadStream('./src/purplepines.yml'),
+    output: process.stdout,
+    console: false
+});
+
+let yamlString = '';
+readInterface.on('line', function (line) {
+    if (line.trim() === 'foreground:') {
+        readInterface.close();
+    } else {
+        yamlString += line + '\n';
+    }
+});
+
+
+// const colors = yaml.load(yamlString, { DEFAULT_SCHEMA });
+
+const colors = yaml.load(yamlString, { DEFAULT_SCHEMA });
+
+// Get the main color
+// const mainColor = tinycolor(colors.MAIN);
+
+// Get the main color
+// const MAINCOLOR = tinycolor(colors.MAIN);
+// const ACCENTCOLOR = tinycolor(colors.ACCENT);
+
+// readInterface.on('close', function () {
+// let data = yaml.load(yamlString, { DEFAULT_SCHEMA });
+// const colors = yaml.load(yamlString, { DEFAULT_SCHEMA });
+
+// Get the main color
+// const MAINCOLOR = tinycolor(colors.MAIN);
+// const ACCENTCOLOR = tinycolor(colors.ACCENT);
+
+// const maincolor = data.purplepines.base.find((item) => item['&MAIN']);
+// const accentcolor = data.purplepines.base.find((item) => item['&ACCENT']);
+
+// console.log(maincolor['&MAIN']); // '#5bb37b'
+// console.log(accentcolor['&ACCENT']); // 'd333ff'
+// });
 /**
  * @typedef {Object} TokenColor - Textmate token color.
  * @prop {string} [name] - Optional name.
@@ -99,10 +146,13 @@ module.exports = async () => {
     );
 
     /** @type {Theme} */
+    const colors = yaml.load(yamlString, { DEFAULT_SCHEMA });
     const base = load(yamlFile, { schema });
 
     // Get the main color
-    const mainColor = tinycolor(base.MAINCOLOR);
+    const mainColor = tinycolor(colors.MAIN);
+    stdout.write(mainColor.toHexString());
+    // print(mainColor);
 
     // Remove nulls and other falsey values from colors
     for (const key of Object.keys(base.colors)) {
