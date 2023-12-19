@@ -3,5 +3,6 @@
     "[yaml]": {
         "editor.renderWhitespace": "boundary",
     },
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "julia.environmentPath": "D:\\fgabelbe\\Eigene Projekte\\Purple-Pines"
 }

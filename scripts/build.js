@@ -1,7 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 const generate = require('./generate');
-const modify = require('./modify');
 const yaml = require('js-yaml');
 
 const THEME_DIR = path.join(__dirname, '..', 'theme');
