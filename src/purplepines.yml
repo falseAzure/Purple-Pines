@@ -49,7 +49,6 @@ purplepines:
     - &BG_BORDER_LIGHT     !hsv ['main', null, 26]
     - &BG_HIGHLIGHT     !hsv ['main', null, 30]
   accent:
-    - &ACC100  !hsv ['accent', null, 100]
     - &ACC_FULL   !hsv ['accent', null, 82]
     - &SELECTION !hsv ['accent', null, 45]
   ansi:
@@ -76,13 +75,6 @@ purplepines:
   other:
     - &LineHighlight '#44475A75'
     - &NonText       '#FFFFFF1A'
-    - &WHITE         '#FFFFFF'
-    # - &TAB_DROP_BG   '#44475A70'
-    # UI Variants
-    # - &BGLighter     '#424450'
-    # - &BGLight       '#343746' # HSV (230   , 25.71, 27.45)
-    # - &BGDark        '#21222C' # HSV (234.55, 25   , 17.25)
-    # - &BGDarker      '#191A21' # HSV (234.55, 25   , 13   )
 
 # User Interface (more info: https://code.visualstudio.com/docs/getstarted/theme-color-reference)
 colors:
