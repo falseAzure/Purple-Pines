@@ -16,7 +16,7 @@ purplepines:
   - # Comments
   - &COMMENT !hsv ['main', 13, 51]
   - &COMMENT_ACC !hsv ['accent', 30, 64]
-  - &COMMENT_TOKEN !hsv ['accent', 20, 50]
+  - &COMMENT_PUNC !hsv ['accent', 20, 50]
   - &COMMENT_DARK !hsv ['main', 10, 43]
   tokencolors:
   - &KEYWORD   '#10b1fe'
@@ -26,19 +26,19 @@ purplepines:
   - &BLUE      '#59a4ff'
   - &RED       '#ff5980'
   - # Secondary
-  - &PURPLE    '#cf6eff' # Complementary of *YELLOW > HSV: 284 with max saturation
+  - &PURPLE    '#cf6eff'
   - &ORANGE    '#ff8a54'
   - &GREEN     '#80ff82'
   - # Tertiary
   - &PINK      '#ff73de' # Analogous of *RED and *PURPLE x
   - &GRASS      '#afff4d' # Analogous of *YELLOW and *GREEN x
-  - &CYAN      '#73ffff' # Analogous of *YELLOW and *GREEN x
   - &VIOLET     '#af6eff' # Analogous of *BLUE and *PURPLE x
   - &TURQUOISE '#54ffc9' # Analogous of *BLUE and *GREEN x
   - &BRICK    '#cc8470' # Analogous of *RED and *ORANGE x
   - &SUMMER    '#ffc14d' # Analogous of *YELLOW and *ORANGE x
   - # Other
   - &ERROR     '#ff0d00' # Complementary of *BG > HSV: 5
+  - &CYAN      '#72ffff' # Analogous of *YELLOW and *GREEN x
   main:
     - &SHADOW      !hsv ['main', null, 5]
     - &BG_EDITOR     !hsv ['main', null, 11]
@@ -581,7 +581,7 @@ tokenColors:
     scope:
     - meta.separator.markdown
     settings:
-      foreground: *COMMENT_TOKEN
+      foreground: *COMMENT_PUNC
 
   - name: Code blocks
     scope:
@@ -784,7 +784,7 @@ tokenColors:
     - keyword
     - punctuation.definition.keyword
     settings:
-      foreground: *COMMENT_TOKEN
+      foreground: *COMMENT_PUNC
 
   - name: Keyword "new"
     scope:
@@ -797,7 +797,7 @@ tokenColors:
     scope:
     - meta.selector
     settings:
-      foreground: *COMMENT_TOKEN
+      foreground: *COMMENT_PUNC
 
 # =============================================================================
 # Language Built-ins
@@ -857,7 +857,7 @@ tokenColors:
     - support.other.chomping-indicator.yaml
     - punctuation.separator.annotation
     settings:
-      foreground: *COMMENT_TOKEN
+      foreground: *COMMENT_PUNC
 
   - name: Brackets, braces, parens, etc.
     scope:
@@ -895,7 +895,7 @@ tokenColors:
     - punctuation.section.embedded.end source.ruby # Issue with ruby's tmLanguage
     - punctuation.definition.variable.makefile
     settings:
-      foreground: *COMMENT_TOKEN
+      foreground: *COMMENT_PUNC
 
 # =============================================================================
 # Serializable / Config Languages

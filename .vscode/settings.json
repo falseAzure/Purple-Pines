@@ -4,5 +4,8 @@
         "editor.renderWhitespace": "boundary",
     },
     "cmake.configureOnOpen": true,
-    "julia.environmentPath": "D:\\fgabelbe\\Eigene Projekte\\Purple-Pines"
+    "julia.environmentPath": "D:\\fgabelbe\\Eigene Projekte\\Purple-Pines",
+    "files.watcherExclude": {
+        "**/target": true
+    }
 }
